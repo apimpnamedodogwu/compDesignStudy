@@ -44,7 +44,7 @@ def PointMatrix(IMAX,JMAX,KMAX):
                     #extract points from grid
                     pts = rs.SurfacePoints(srf)
                     #call function to reveal order of points
-                    #numberPoints(pts)
+                    # numberPoints(pts)
                     #delete construction surface
                     rs.DeleteObject(srf)
                     #generate random integer between 1 and 9 to select quadrant

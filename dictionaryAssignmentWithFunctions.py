@@ -23,6 +23,7 @@ def pointMatrix(imax, jmax):
             if i > 0 and j > 0:
                 diagonal = rs.AddLine(ptDict[(i-1,j-1)], ptDict[(i, j)])
                 centre = rs.CurveMidPoint(diagonal)
+                print centre
                 
     #           Find the mid points of the bone structure 
                 centreA = midPt(ptDict[(i-1,j-1)], ptDict[(i, j-1)])
