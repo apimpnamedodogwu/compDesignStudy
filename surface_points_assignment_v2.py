@@ -66,7 +66,7 @@ def surface_points(surface, intU, intV):
                 rs.AddPoint(startPointSecondCurve)
 
                 
-                profile = rs.AddLine(startPointFirstCurve, centroid)
+                profile = rs.AddLine(startPointFirstCurve, startPointSecondCurve)
             
                 rails = [outerCurve, joinedInnerCurves]
                 profile = [profile]
