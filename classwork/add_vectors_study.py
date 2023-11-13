@@ -29,20 +29,7 @@ def smoothingvector(point, prev_point, next_point, s):
     vm = rs.VectorScale(va, s)
     return vm
 
-# def smoothcurve(curve_id, s):
-#     curve_points = rs.CurvePoints(curve_id)
-#     new_curve_points = []
- 
-#     for i in range(1, len(curve_points)-1):
-#         vm = smoothingvector(curve_points[i], curve_points[i-1], curve_points[i+1], s)
-#         new_curve_points.append( rs.PointAdd(curve_points[i], vm) )
- 
-#     knots = rs.CurveKnots(curve_id)
-#     degree = rs.CurveDegree(curve_id)
-#     weights = rs.CurveWeights(curve_id,0)
-#     newcurve_id = rs.AddNurbsCurve(new_curve_points, knots, degree, weights)
-#     if newcurve_id: rs.DeleteObject(curve_id)
-#     return newcurve_id
+
 
 def smoothcurve(curve_id, s):
     curve_points = rs.CurvePoints(curve_id)
