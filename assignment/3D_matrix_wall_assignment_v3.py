@@ -46,12 +46,6 @@ def point_matrix(imax, jmax, kmax):
 
                     centre = add_line_and_get_midpoint(centre_d_back, centre_b_back)
 
-
-                    # centre_line = rs.AddLine(centre_d_back, centre_b_back)
-                    # centre = rs.CurveMidPoint(centre_line)
-                    # rs.HideObject(centre_line)
-                    # rs.AddPoint(centre)
-
                     back_pattern = rs.AddCurve((centre_a_back, centre, centre_b_back,
                                                centre_b_back, centre, centre_c_back,
                                           centre_c_back, centre, centre_d_back,
@@ -72,11 +66,7 @@ def point_matrix(imax, jmax, kmax):
                     # rs.AddPoint(centre_d_front)
 
                     centre = add_line_and_get_midpoint(centre_d_front, centre_b_front)
-                    # centre_line = rs.AddLine(centre_d_front, centre_b_front)
-                    # centre = rs.CurveMidPoint(centre_line)
-                    # rs.HideObject(centre_line)
-                    # rs.AddPoint(centre)
-
+                
                     front_pattern = rs.AddCurve((centre_a_front, centre, centre_b_front,
                                                centre_b_front, centre, centre_c_front,
                                           centre_c_front, centre, centre_d_front,
