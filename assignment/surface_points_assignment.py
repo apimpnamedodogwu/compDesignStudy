@@ -24,35 +24,48 @@ def surface_points(surface, intU, intV):
         for j in range (intV + 1):
             if i > 0 and j > 0:
                 centroid = midPt(ptMTX[(i, j)], ptMTX[(i-1, j-1)])
-                rs.AddPoint(centroid)
+                # rs.AddPoint(centroid)
 
                 centreA = midPt(ptMTX[(i-1,j-1)], ptMTX[(i, j-1)])
                 centreB = midPt(ptMTX[(i,j-1)], ptMTX[(i, j)])
-                centreC = midPt(ptMTX[(i,j)], ptMTX[(i-1, j)])
+                centreC = midPt(ptMTX[(i,j)], ptMTX[(i-1, j)]) 
                 centreD = midPt(ptMTX[(i-1,j)], ptMTX[(i-1, j-1)])
 
+                curves = []
+                curves.append(rs.AddCurve((ptMTX[(i-1, j-1)], centroid, centreA)))
+                curves.append(rs.AddCurve((centreA, centroid, ptMTX[(i, j-1)])))
+                curves.append(rs.AddCurve(( ptMTX[(i, j-1)], centroid, centreB)))
+                curves.append(rs.AddCurve(( centreB, centroid, ptMTX[(i, j)])))
+                curves.append(rs.AddCurve(( ptMTX[(i, j)], centroid, centreC)))
+                curves.append(rs.AddCurve(( centreC, centroid, ptMTX[(i-1, j)])))
+                curves.append(rs.AddCurve(( ptMTX[(i-1, j)], centroid, centreD)))
+                curves.append(rs.AddCurve(( centreD, centroid, ptMTX[(i-1, j-1)])))
+                
+                
 
-                curvesOne = []
-                curvesOne.append(rs.AddCurve((ptMTX[(i-1,j-1)], centroid, centreA)))
-                curvesOne.append(rs.AddCurve((ptMTX[(i-1,j-1)], centroid, centreD)))
-                curvesOne.append(rs.AddCurve((ptMTX[(i-1,j-1)], centroid, centreB)))
-                curvesOne.append(rs.AddCurve((ptMTX[(i-1,j-1)], centroid, centreC)))
+                outerCurve = rs.JoinCurves(curves, True)
 
-                firstCurve = rs.JoinCurves(curvesOne, True)
+                #create inner curve
+                innerCrv = rs.AddCurve((ptMTX[(i-1,j-1)], ptMTX[(i,j-1)], ptMTX[(i,j)],
+                ptMTX[(i-1,j)], ptMTX[(i-1,j-1)]))
+                #scale inner curve with centroid
+                rs.ScaleObject(innerCrv, centroid, (.4,.4,.4))
 
-                curvesTwo = []
-
-                curvesTwo.append(rs.AddCurve((ptMTX[(i,j)], centroid, centreC)))
-                curvesTwo.append(rs.AddCurve((ptMTX[(i,j)], centroid, centreB)))
-                curvesTwo.append(rs.AddCurve((ptMTX[(i,j)], centroid, centreD)))
-                curvesTwo.append(rs.AddCurve((ptMTX[(i,j)], centroid, centreA)))
-
-                secondCurve = rs.JoinCurves(curvesTwo, True)
-
-                # profile = rs.AddLine(ptMTX[(i-1,j-1)], ptMTX[(i, j)])
-                # rails = [firstCurve, secondCurve]
-                # profile = [profile]
-                # rs.AddSweep2(rails, profile)
+                rs.ReverseCurve(outerCurve)
+                rs.ReverseCurve(innerCrv)
+                #find start point
+                startPt = rs.CurveStartPoint(innerCrv)
+                # rs.AddPoint(startPt)
+                #create profile line
+                profile = rs.AddLine(startPt, ptMTX[(i,j-1)])
+                
+                #put curves in lists
+                rails = [outerCurve, innerCrv]
+                profile = [profile]
+                
+                #use 2 rail sweep to create surfaces
+                rs.AddSweep2(rails, profile)
+                
                 
 
 

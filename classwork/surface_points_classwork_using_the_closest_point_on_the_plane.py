@@ -40,6 +40,7 @@ def SurfacePoints(STRSRF, INTU, INTV):
         for j in range(INTV+1):
             if i > 0 and j > 0:
                 #find a plane from 3 matrix points
+                # origin, x-axis, and y-axis
                 plane = rs.PlaneFromPoints(ptMTX[(i-1,j-1)], ptMTX[(i,j-1)],
                 ptMTX[(i-1,j)])
                 #find the closest point on the plane using the 4th matrix point

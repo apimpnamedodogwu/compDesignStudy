@@ -23,9 +23,9 @@ def PointMatrix(IMAX,JMAX,KMAX):
         for j in range(JMAX):
             for k in range(KMAX):
                 #define x,y,z in terms of i,j,k
-                x = i #* 2
-                y = j #* 2
-                z = k #* 2
+                x = i 
+                y = j
+                z = k 
                 #save point values in dictionary
                 point = (x,y,z)
                 ptDict[(i,j,k)] = point
@@ -43,6 +43,9 @@ def PointMatrix(IMAX,JMAX,KMAX):
                     # Create the back bone structure (framework)
                     curveBack = rs.AddCurve((ptDict[(i-1,j,k-1)], ptDict[(i,j,k-1)],
                                 ptDict[(i,j,k)], ptDict[(i-1,j,k)], ptDict[(i-1,j,k-1)]),1)
+                    rs.AddSrfPt((ptDict[(i-1,j,k-1)], ptDict[(i,j,k-1)],
+                                ptDict[(i,j,k)], ptDict[(i-1,j,k)]))
+                    
                     centreForCurveBack = rs.CurveMidPoint(curveBack)
                     pattenrForBack = rs.AddCurve((ptDict[(i-1,j,k-1)], centreForCurveBack, ptDict[(i,j,k-1)], 
                                  centreForCurveBack, ptDict[(i,j,k)], centreForCurveBack, ptDict[(i-1,j,k)], centreForCurveBack, ptDict[(i-1,j,k-1)]))
@@ -56,8 +59,11 @@ def PointMatrix(IMAX,JMAX,KMAX):
                     
                     profile = rs.AddLine(centreForCurveBack, centreForCurveFront)
                     
-                    # rs.HideObject(curveBack)
+                    rs.HideObject(curveBack)
                     rs.HideObject(curveFront)
+                    rs.HideObject(pattenrForBack)
+                    rs.HideObject(patternForFront)
+                    rs.HideObject(profile)
 
                     crvs = [pattenrForBack, patternForFront]
                     profile = [profile]
@@ -66,11 +72,11 @@ def PointMatrix(IMAX,JMAX,KMAX):
             
     
 
-def midPt(pt01, pt02):
-#   clear all data being held in point variable
-    point = None
-    point = [(pt01[0] + pt02[0])/2, (pt01[1] + pt02[1])/2, (pt01[2] + pt02[2])/2]
-    return point
+# def midPt(pt01, pt02):
+# #   clear all data being held in point variable
+#     point = None
+#     point = [(pt01[0] + pt02[0])/2, (pt01[1] + pt02[1])/2, (pt01[2] + pt02[2])/2]
+#     return point
 
 
 
