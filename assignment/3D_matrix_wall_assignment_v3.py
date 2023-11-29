@@ -7,6 +7,13 @@ def mid_point(pt01, pt02):
     point = [(pt01[0] + pt02[0])/2, (pt01[1] + pt02[1])/2, (pt01[2] + pt02[2])/2]
     return point
 
+def add_line_and_get_midpoint(centre_d_front, centre_b_front):
+    centre_line = rs.AddLine(centre_d_front, centre_b_front)
+    centre = rs.CurveMidPoint(centre_line)
+    rs.HideObject(centre_line)
+    return centre
+
+
 def point_matrix(imax, jmax, kmax):
     for i in range(imax):
         for j in range(jmax):
@@ -37,9 +44,12 @@ def point_matrix(imax, jmax, kmax):
                     centre_d_back = mid_point(pt_dict[(i-1, j, k)], pt_dict[(i-1, j, k-1)])
                     # rs.AddPoint(centre_d_back)
 
-                    centre_line = rs.AddLine(centre_d_back, centre_b_back)
-                    centre = rs.CurveMidPoint(centre_line)
-                    rs.HideObject(centre_line)
+                    centre = add_line_and_get_midpoint(centre_d_back, centre_b_back)
+
+
+                    # centre_line = rs.AddLine(centre_d_back, centre_b_back)
+                    # centre = rs.CurveMidPoint(centre_line)
+                    # rs.HideObject(centre_line)
                     # rs.AddPoint(centre)
 
                     back_pattern = rs.AddCurve((centre_a_back, centre, centre_b_back,
@@ -61,9 +71,10 @@ def point_matrix(imax, jmax, kmax):
                     centre_d_front = mid_point(pt_dict[(i-1,j-1, k)], pt_dict[(i-1, j-1, k-1)])
                     # rs.AddPoint(centre_d_front)
 
-                    centre_line = rs.AddLine(centre_d_front, centre_b_front)
-                    centre = rs.CurveMidPoint(centre_line)
-                    rs.HideObject(centre_line)
+                    centre = add_line_and_get_midpoint(centre_d_front, centre_b_front)
+                    # centre_line = rs.AddLine(centre_d_front, centre_b_front)
+                    # centre = rs.CurveMidPoint(centre_line)
+                    # rs.HideObject(centre_line)
                     # rs.AddPoint(centre)
 
                     front_pattern = rs.AddCurve((centre_a_front, centre, centre_b_front,
