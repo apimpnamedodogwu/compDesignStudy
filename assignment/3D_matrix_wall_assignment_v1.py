@@ -43,8 +43,8 @@ def PointMatrix(IMAX,JMAX,KMAX):
                     # Create the back bone structure (framework)
                     curveBack = rs.AddCurve((ptDict[(i-1,j,k-1)], ptDict[(i,j,k-1)],
                                 ptDict[(i,j,k)], ptDict[(i-1,j,k)], ptDict[(i-1,j,k-1)]),1)
-                    rs.AddSrfPt((ptDict[(i-1,j,k-1)], ptDict[(i,j,k-1)],
-                                ptDict[(i,j,k)], ptDict[(i-1,j,k)]))
+                    # rs.AddSrfPt((ptDict[(i-1,j,k-1)], ptDict[(i,j,k-1)],
+                    #             ptDict[(i,j,k)], ptDict[(i-1,j,k)]))
                     
                     centreForCurveBack = rs.CurveMidPoint(curveBack)
                     pattenrForBack = rs.AddCurve((ptDict[(i-1,j,k-1)], centreForCurveBack, ptDict[(i,j,k-1)], 
